@@ -14,7 +14,7 @@ Lệnh in ra ba phần: các event trong trace (`reply`, `decision`, `model_over
 
 | Trường | Nội dung |
 |---|---|
-| Trial | `seeded_regression C-002@11` (item `E-002`), run ID `E-seeded_regression-20261118-d781` (sẽ xác nhận lại sau khi sinh report M4) |
+| Trial | `seeded_regression C-002@11` (item `E-002`), run ID `E-seeded_regression-20261118-d781` |
 | Triệu chứng | Grader `TrialPass` (`pass_rate`) và `RefundAmountCorrect` fail: `status=resolved` thay vì `denied`, `ledger refund_vnd=20000` thay vì `0`; step 6 `reply` nói `"Dạ, LogiX đã hoàn 20.000đ cho đơn O-202."`. |
 | Bước sai đầu tiên | Event **3** (`model_override`): `{"delay_days": 5}` — agent lấy số `"trễ 5 ngày"` từ ticket để ghi đè `delay_days=2` của DB. |
 | Vì sao là bước *đầu tiên* | Event **1** (`handoff`) chuyển đúng `claim_id=C-002` và `principal_scope=owner_order_only` không lộ secret; event **2** (`investigator`) trả đúng dữ liệu DB `{"order_id": "O-202", "status": "delivered", "delay_days": 2, "shipping_fee_vnd": 20000}` (< 3 ngày, chưa đủ điều kiện hoàn). Mọi bước trước event 3 đều đúng; ngay sau event 3 thì event 4 (`quote`) mới tính sai thành `20.000đ`. |
