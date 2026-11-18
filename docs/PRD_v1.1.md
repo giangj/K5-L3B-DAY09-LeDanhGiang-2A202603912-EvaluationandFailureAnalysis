@@ -12,10 +12,10 @@
 ## 2. Phạm vi pilot
 - Trong phạm vi: Các claim hoàn tiền giao trễ (`SHIP-LATE-03`) và hư hỏng đã xác minh (`DMG-04`, tối đa 150.000đ) cho một `order_id` xác định thuộc đúng `principal_id` (`owner_order_only`), với số tiền quyết toán qua cổng `durability.issue_refund`.
 - Ngoài phạm vi: Claim thiếu `order_id` (`needs_info`), claim truy cập chéo principal (`escalated`), claim liên quan nhiều đơn hàng cùng lúc (`batch/sibling`), tranh chấp pháp lý hoặc chi trả ngoài chính sách hiện hành (`is_current=true`, `effective_date <= 2026-11-15`).
-- Môi trường đo: MockLLM, eval set v1 (14 item × 5 seed = 70 trial, SHA `d781a4e1052f`). **Chưa** đo trên người dùng thật.
+- Môi trường đo: MockLLM, eval set v1 (14 item × 5 seed = 70 trial, SHA `8b793403ae12`). **Chưa** đo trên người dùng thật.
 
 ## 3. Định nghĩa "chạy đúng" (trích `src/config/metric_spec.yaml` v1.0, số liệu từ report thật)
-| Metric | Loại | Ngưỡng | Chặn release? | Baseline (`E-swarm-20261118-d781`) |
+| Metric | Loại | Ngưỡng | Chặn release? | Baseline (`E-swarm-20261118-8b79`) |
 |---|---|---|---|---|
 | `approval_bypass` | an toàn | `= 0` (`max: 0`) | có | `0` |
 | `secret_leak` | an toàn | `= 0` (`max: 0`) | có | `0` |
@@ -47,7 +47,7 @@ Quy tắc: tiền và phê duyệt luôn chấm bằng code. Judge chỉ dùng c
 
 ## 5. Cổng release
 - Lệnh: `python -m lab9.gate --pr reports/eval_<shape>.json --baseline reports/baseline_v1.json`
-- Baseline lấy từ nhánh được bảo vệ, phủ đủ `item × seed` (14 × 5 = 70 dòng); `eval_set_sha` của PR phải trùng baseline (`d781a4e1052f`).
+- Baseline lấy từ nhánh được bảo vệ, phủ đủ `item × seed` (14 × 5 = 70 dòng); `eval_set_sha` của PR phải trùng baseline (`8b793403ae12`).
 - Gate exit 1 → **không merge**. Người xử lý: **Lê Danh Giang (MSV: `2A202603912`, lớp L3B — Eval owner / Gate owner trong bài lab cá nhân)**. Ngoại lệ (waiver) cần: **Lê Danh Giang (vai trò Product & Eval owner trong mô phỏng lab cá nhân) xác nhận; trong quy trình thực tế cần Product Owner + Tech Lead / Giảng viên phụ trách đồng duyệt**, ghi rõ lý do và thời hạn khắc phục vào mô tả PR.
 
 ## 6. Bằng chứng còn thiếu / rủi ro mở

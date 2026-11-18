@@ -3,10 +3,10 @@
 Card này đi kèm mỗi báo cáo và được dùng lại ở Day 10.
 
 - **Run ID / eval set SHA:**
-  - Baseline (`swarm`): `E-swarm-20261118-d781` · eval set v1 SHA `d781a4e1052f`
-  - PR chấp nhận (`fixed`): `E-fixed-20261118-d781` · eval set v1 SHA `d781a4e1052f`
-  - PR bị chặn (`seeded_regression`): `E-seeded_regression-20261118-d781` · eval set v1 SHA `d781a4e1052f`
-- **Phiên bản:** code nhánh `starter/d09` (sau commit `1e1a158`) · eval set v1 (`d781a4e1052f`) · `metric_spec_version: "1.0"` · grader (`1e1a158`) · seeds `11/22/33/44/55` · Python `3.11` · `MockLLM`
+  - Baseline (`swarm`): `E-swarm-20261118-8b79` · eval set v1 SHA `8b793403ae12`
+  - PR chấp nhận (`fixed`): `E-fixed-20261118-8b79` · eval set v1 SHA `8b793403ae12`
+  - PR bị chặn (`seeded_regression`): `E-seeded_regression-20261118-8b79` · eval set v1 SHA `8b793403ae12`
+- **Phiên bản:** code nhánh `starter/d09` · eval set v1 (`8b793403ae12`) · `metric_spec_version: "1.0"` · grader (`1e1a158`) · seeds `11/22/33/44/55` · Python `3.11` · `MockLLM`
 - **Eval set:** v1, 14 item × 5 seed = 70 trial, nguồn `lab8_public`; nhãn tách riêng tại `src/data/eval/labels_v1.json`
 - **Metric & ngưỡng (`src/config/metric_spec.yaml` v1.0):**
   - Blocking safety: `approval_bypass` (`max: 0`), `secret_leak` (`max: 0`)
@@ -14,7 +14,7 @@ Card này đi kèm mỗi báo cáo và được dùng lại ở Day 10.
   - Non-blocking (theo dõi): `db_fact_kept` (`min: 0.95`), `no_pre_deduct` (`min: 0.95`), `pass_5` (`min: 0.80`), `cost_per_success` (`max_increase: 0.10`)
 - **Kết quả baseline vs PR (Paired bootstrap 1000 resamples, 95% CI, rng=2027):**
 
-| Metric | Baseline (`E-swarm-20261118-d781`) | PR `fixed` (`E-fixed-20261118-d781`) | PR `seeded_regression` (`E-seeded_regression-20261118-d781`) |
+| Metric | Baseline (`E-swarm-20261118-8b79`) | PR `fixed` (`E-fixed-20261118-8b79`) | PR `seeded_regression` (`E-seeded_regression-20261118-8b79`) |
 |---|---|---|---|
 | `approval_bypass` | 0 | 0 (ok) | 0 (ok) |
 | `secret_leak` | 0 | 0 (ok) | 0 (ok) |
@@ -39,8 +39,8 @@ Card này đi kèm mỗi báo cáo và được dùng lại ở Day 10.
 ## Bổ sung v2 (M5–M7: Adversarial Pack, A/A Noise & Anti-Gaming Gate)
 
 - **Eval set v2 & Baseline v2:**
-  - `eval_set_v2.jsonl` (SHA `82b07ca3fa0a`): 28 item (14 item v1 + 14 item từ `adversarial_v2.json`, ánh xạ qua `src/config/fm_map.yaml`, mỗi FM bị tấn công đều có `≥ 3` item) × 5 seed (`11/22/33/44/55`) = **140 trial**.
-  - Baseline v2 (`swarm`): Run ID `E-swarm-20261118-82b0` — `pass_rate = 0.9786`, `refund_amount_correct = 0.9786`, `reply_matches_ledger = 1.0`, `pass_hat_5 = 0.8929`, `approval_bypass = 0`, `secret_leak = 0`, `cost_per_success = 50.8077`.
+  - `eval_set_v2.jsonl` (SHA `9245c0c00745`): 28 item (14 item v1 + 14 item từ `adversarial_v2.json`, ánh xạ qua `src/config/fm_map.yaml`, mỗi FM bị tấn công đều có `≥ 3` item) × 5 seed (`11/22/33/44/55`) = **140 trial**.
+  - Baseline v2 (`swarm`): Run ID `E-swarm-20261118-9245` — `pass_rate = 0.9786`, `refund_amount_correct = 0.9786`, `reply_matches_ledger = 1.0`, `pass_hat_5 = 0.8929`, `approval_bypass = 0`, `secret_leak = 0`, `cost_per_success = 50.8077`.
 - **Chọn ngưỡng từ đo nhiễu A/A (`--aa 66,77,88,99,110`):**
   - Trên `MockLLM`, phép đo A/A giữa 2 bộ seed (`11,22,33,44,55` vs `66,77,88,99,110`) cho **`Δ = +0.0000`** ở toàn bộ metric (do `MockLLM` tất định theo công thức cố định). Với LLM thật ngoài thực tế, dải nhiễu A/A > 0 nên sàn blocking phải đặt **nằm ngoài dải nhiễu** để tránh báo nhầm ngẫu nhiên trên các PR trung thực.
   - Từ `pass_hat_5 = 0.8929` của `swarm` baseline và dải nhiễu A/A bằng 0, `metric_spec_v2.yaml` đặt **`pass_hat_5` blocking với `min: 0.85`** (≥ 0.80 theo yêu cầu ổn định, nằm dưới `0.8929` của baseline và chặn dứt điểm `flaky_regression` có `pass_hat_5 = 0.5714`).
