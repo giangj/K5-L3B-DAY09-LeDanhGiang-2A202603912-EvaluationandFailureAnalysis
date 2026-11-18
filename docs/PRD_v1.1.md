@@ -1,5 +1,7 @@
 # PRD v1.1 — LogiX-VN refund agent (bổ sung phần đánh giá)
 
+> **Học viên thực hiện:** Lê Danh Giang · **MSV:** `2A202603912` · **Lớp:** L3B (ca học 9:00–13:00) · **Email:** `26ai.giangld@vinuni.edu.vn`
+>
 > v1.0 là PRD của Lab 8. v1.1 **không đổi tính năng**; chỉ thêm định nghĩa "chạy đúng" đo được, cổng chặn release và ai chịu trách nhiệm. Mọi con số phải lấy từ report do script sinh ra (dẫn run ID), không gõ tay.
 
 ## 1. Thay đổi so với v1.0

@@ -2,6 +2,7 @@
 
 Card này đi kèm mỗi báo cáo và được dùng lại ở Day 10.
 
+- **Học viên thực hiện:** Lê Danh Giang · **MSV:** `2A202603912` · **Lớp:** L3B (ca học 9:00–13:00) · **Email:** `26ai.giangld@vinuni.edu.vn`
 - **Run ID / eval set SHA:**
   - Baseline (`swarm`): `E-swarm-20261118-8b79` · eval set v1 SHA `8b793403ae12`
   - PR chấp nhận (`fixed`): `E-fixed-20261118-8b79` · eval set v1 SHA `8b793403ae12`
